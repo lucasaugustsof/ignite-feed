@@ -1,0 +1,22 @@
+.container {
+  padding: 1.25rem 0 1.2rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 1rem;
+
+  background-color: var(--gray-800);
+}
+
+.container img {
+  width: 4.00519rem;
+  height: 3.79781rem;
+}
+
+.container strong {
+  font-size: 1.59906rem;
+  font-weight: 700;
+  color: var(--gray-100);
+}
