@@ -17,10 +17,9 @@ export const Sidebar: React.FC = () => {
 
       <div className={styles.profile}>
         <Avatar
-          data={{
-            src: 'https://github.com/lucasaugustsof.png',
-            alt: 'Lucas Augusto',
-          }}
+          src="https://github.com/lucasaugustsof.png"
+          alt="Lucas Augusto"
+          title="Lucas Augusto"
           hasBorder
         />
 

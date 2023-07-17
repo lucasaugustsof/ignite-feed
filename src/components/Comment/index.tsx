@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import styles from './styles.module.css'
 
@@ -6,14 +6,29 @@ import { Trash, ThumbsUp } from 'phosphor-react'
 
 import { Avatar } from '../Avatar'
 
-export const Comment: React.FC = () => {
+interface CommentProps {
+  content: string
+  onDeleteComment(): void
+}
+
+export const Comment: React.FC<CommentProps> = ({
+  content,
+  onDeleteComment,
+}) => {
+  const [linkCount, setLikeCount] = useState(0)
+
+  function handleLikeComment() {
+    setLikeCount((prevLinkCount) => prevLinkCount + 1)
+  }
+
+  const isCommentLiked = linkCount > 0
+
   return (
     <div className={styles.container}>
       <Avatar
-        data={{
-          src: 'https://github.com/lucasaugustsof.png',
-          alt: 'Lucas Augusto',
-        }}
+        src="https://github.com/lucasaugustsof.png"
+        alt="Lucas Augusto"
+        title="Lucas Augusto"
       />
 
       <div className={styles.commentBox}>
@@ -21,23 +36,24 @@ export const Comment: React.FC = () => {
           <header>
             <div className={styles.author}>
               <strong>Lucas Augusto</strong>
+
               <time title="05 de Julho às 12h35" dateTime="2023-05-07 12:35:00">
                 Cerca de 2h
               </time>
             </div>
 
-            <button>
+            <button onClick={onDeleteComment}>
               <Trash size={24} cursor="pointer" />
             </button>
           </header>
 
-          <p>Muito bom Delba, parabéns!! 👏👏</p>
+          <p>{content}</p>
         </div>
 
         <footer>
-          <button>
+          <button data-active={isCommentLiked} onClick={handleLikeComment}>
             <ThumbsUp size={20} />
-            Aplaudir<span>03</span>
+            Aplaudir<span>{linkCount}</span>
           </button>
         </footer>
       </div>

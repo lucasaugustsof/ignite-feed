@@ -86,6 +86,10 @@
   background: none;
 }
 
+.commentBox footer button:hover {
+  color: var(--white);
+}
+
 .commentBox footer button > svg {
   margin-right: 0.62rem;
 }
