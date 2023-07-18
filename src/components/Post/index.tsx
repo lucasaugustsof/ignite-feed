@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 
 import { format, formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
+
+import { CommentContext } from '../../contexts/CommentContext'
 
 import styles from './styles.module.css'
 
@@ -22,8 +24,10 @@ interface PostProps {
 }
 
 export const Post: React.FC<PostProps> = ({ author, publishedAt, content }) => {
-  const [comments, setComments] = useState(['Post muito bacana, hein?!'])
   const [newCommentText, setNewCommentText] = useState('')
+
+  const { comments, addNewComment, openDialogDeleteComment } =
+    useContext(CommentContext)
 
   const formattedPublishedDate = format(
     publishedAt,
@@ -41,7 +45,7 @@ export const Post: React.FC<PostProps> = ({ author, publishedAt, content }) => {
   function handleCreateNewComment(event: React.FormEvent) {
     event.preventDefault()
 
-    setComments((prevComments) => [...prevComments, newCommentText])
+    addNewComment(newCommentText)
 
     setNewCommentText('')
   }
@@ -51,14 +55,6 @@ export const Post: React.FC<PostProps> = ({ author, publishedAt, content }) => {
   ) {
     event.target.setCustomValidity('')
     setNewCommentText(event.target.value)
-  }
-
-  function deleteComment(commentToDelete: string) {
-    const commentWithoutDeleteOne = comments.filter(
-      (comment) => comment !== commentToDelete,
-    )
-
-    setComments(commentWithoutDeleteOne)
   }
 
   function handleNewCommentInvalid(
@@ -137,7 +133,7 @@ export const Post: React.FC<PostProps> = ({ author, publishedAt, content }) => {
           <Comment
             key={comment}
             content={comment}
-            onDeleteComment={() => deleteComment(comment)}
+            onDeleteComment={() => openDialogDeleteComment(comment)}
           />
         ))}
       </div>

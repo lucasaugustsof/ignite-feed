@@ -5,10 +5,6 @@
   background-color: var(--gray-800);
 }
 
-.container + .container {
-  margin-top: 2rem;
-}
-
 .container > header {
   display: flex;
   justify-content: space-between;

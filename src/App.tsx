@@ -2,6 +2,8 @@ import React from 'react'
 
 import styles from './App.module.css'
 
+import { CommentProvider } from './contexts/CommentContext'
+
 import { Header } from './components/Header'
 import { Sidebar } from './components/Sidebar'
 import { Post } from './components/Post'
@@ -68,12 +70,13 @@ const App: React.FC = () => {
 
         <main>
           {posts.map((post) => (
-            <Post
-              key={post.id}
-              author={post.author}
-              publishedAt={post.publishedAt}
-              content={post.content}
-            />
+            <CommentProvider key={post.id}>
+              <Post
+                author={post.author}
+                publishedAt={post.publishedAt}
+                content={post.content}
+              />
+            </CommentProvider>
           ))}
         </main>
       </div>
